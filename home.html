@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a2e;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            display: none; /* Starting me hidden jab tak auth verify na ho */
+        }
+        h1 {
+            font-size: 45px;
+            font-weight: 800;
+            color: #e94560;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 22px;
+            color: #a2a2bd;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .logout-btn {
+            background: #e94560;
+            color: #fff;
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: 800;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            background: #0f3460;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Home Page!</h1>
+    <p>Aapka Supabase authentication bilkul verify ho chuka hai. Interface ekdum secure aur ready hai.</p>
+    
+    <button class="logout-btn" onclick="logout()">Log Out</button>
+
+    <script>
+        const SUPABASE_URL = "https://whgottmfbrrwzpodoglw.supabase.co";
+        const SUPABASE_ANON_KEY = "sb_publishable_W3LHrXF4NGwpl1j9IxqpOg_X8XDXpBO";
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // Security Check: Agar user logged in nahi hai toh index.html pe bhejo
+        async function checkUser() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'index.html';
+            } else {
+                document.body.style.display = 'flex'; // Agar valid session hai tabhi page dikhao
+            }
+        }
+
+        async function logout() {
+            await supabase.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
+        // Run security check on load
+        checkUser();
+    </script>
+
+</body>
+</html>
