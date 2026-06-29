@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern UI - Login & Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; /* Clean aur clear text ke liye */
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Dark gradient background */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+        }
+
+        .container {
+            /* Glassmorphism effect */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: #b3b3b3;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+        }
+
+        /* Secondary Button (Logout) */
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        #home-page {
+            display: none; /* Starting mein home page hide rahega */
+        }
+        
+        .welcome-text {
+            color: #d1d8e0;
+            margin-top: 10px;
+            font-size: 15px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-page">
+        <h2>Login Access</h2>
+        <input type="text" id="username" placeholder="Username (ex: Kashif)" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="login()">Enter System</button>
+    </div>
+
+    <div class="container" id="home-page">
+        <h2>Welcome, <span id="user-display" style="color: #ff4b2b;">User</span>! 🚀</h2>
+        <p class="welcome-text">Aapke naye dashboard mein aapka swagat hai. Interface aur fonts dono update kar diye gaye hain.</p>
+        <button class="btn-secondary" onclick="logout()">Log Out</button>
+    </div>
+
+    <script>
+        // Simple JavaScript switch logic
+        function login() {
+            let user = document.getElementById('username').value;
+            
+            // Check agar username khali na ho
+            if (user.trim() !== "") {
+                document.getElementById('user-display').innerText = user;
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('home-page').style.display = 'block';
+            } else {
+                alert("Please enter a username to continue!");
+            }
+        }
+
+        function logout() {
+            // Fields ko clear karke wapas login page par bhejna
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+            document.getElementById('login-page').style.display = 'block';
+            document.getElementById('home-page').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
