@@ -90,10 +90,11 @@
     </div>
 
     <script>
-        // Aapki details ke sath Supabase Initialise kiya
         const SUPABASE_URL = "https://whgottmfbrrwzpodoglw.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_W3LHrXF4NGwpl1j9IxqpOg_X8XDXpBO";
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // Error fix: 'supabase' ki jagah 'supabaseClient' use kiya hai
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const loginForm = document.getElementById('loginForm');
         const errorBox = document.getElementById('errorBox');
@@ -106,7 +107,7 @@
             const password = document.getElementById('password').value;
 
             // Supabase Authentication Trigger
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email: email,
                 password: password,
             });
@@ -115,7 +116,7 @@
                 errorBox.innerText = error.message;
                 errorBox.style.display = 'block';
             } else {
-                // Login successful! Token generate hoga aur redirect karega
+                // Login successful!
                 window.location.href = 'home.html';
             }
         });
